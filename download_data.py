@@ -7,21 +7,6 @@ from selenium import webdriver
 os.makedirs("data", exist_ok=True)
 
 
-def selenium_download(url):
-    # Set up the Selenium driver
-    driver = webdriver.Chrome('path_to_chrome_driver')
-
-    # Open the web page
-    driver.get(url)
-
-    # Do something with the web page (e.g., extract information, interact with elements, etc.)
-
-    # Close the browser
-    driver.quit()
-
-selenium_download("https://img12.360buyimg.com/imgzone/jfs/t13861/166/2581186384/80876/2558218a/5a45087fNd62614d7.jpg")
-
-
 def download_data(file,folder):
 
     folder_path = f"data/{folder}"
@@ -67,6 +52,6 @@ def download_data(file,folder):
         i+=1
 
 # Downloading from json files, test, train and validation data
-# download_data("test","test_img")
-# download_data("train","train_img")
-# download_data("validation","validation_img")
+download_data("test","test_img")
+download_data("train","train_img")
+download_data("validation","validation_img")
