@@ -1,13 +1,12 @@
 import json
 import os
 import requests
-from selenium import webdriver
 
 
 os.makedirs("data", exist_ok=True)
 
 
-def download_data(file,folder):
+def download_data(file,folder,index):
 
     folder_path = f"data/{folder}"
     timeout_seconds = 10  # Specify the maximum allowed execution time in seconds
@@ -22,12 +21,18 @@ def download_data(file,folder):
         data = data["images"]
 
     # Download the data
-    i = 0
+    i = index
     for img in data :
         print(i)
         try:
             img_url = img["url"][0]
             filename = f"{str(img['image_id'])}.jpg" # Filename is the image id
+
+            # Check if the file already exists in the destination folder
+            if os.path.exists(file_path):
+                print('File already exists. Skipping download.')
+                i += 1
+                continue
 
             response = requests.get(img_url,timeout=timeout_seconds) # Send a GET request to the URL
 
@@ -52,6 +57,6 @@ def download_data(file,folder):
         i+=1
 
 # Downloading from json files, test, train and validation data
-download_data("test","test_img")
+#download_data("test","test_img")
 download_data("train","train_img")
 download_data("validation","validation_img")
